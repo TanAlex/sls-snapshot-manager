@@ -1,0 +1,14 @@
+{
+  "name": "snapshot-manager",
+  "version": "1.0.0",
+  "description": "Serverless snapshot manager auto-backup to DR site",
+  "main": "snapshot_mgr.py",
+  "devDependencies": {
+    "serverless": "^1.25.0"
+  },
+  "scripts": {
+    "sls": "sls"
+  },
+  "author": "ttan@onica.com",
+  "license": "ISC"
+}

@@ -1,0 +1,4 @@
+{
+    "DEST_REGION" : "us-east-2",
+    "BACKUP_RETENTION_DAYS" : 1
+}

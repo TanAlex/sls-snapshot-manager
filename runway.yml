@@ -1,0 +1,10 @@
+---
+
+deployments:
+  - modules:
+      - path: snapshot_mgr.sls
+        environments:
+          dev: true
+          prod: true
+    regions:
+      - us-west-2

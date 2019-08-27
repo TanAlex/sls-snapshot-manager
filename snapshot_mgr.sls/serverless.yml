@@ -1,0 +1,59 @@
+service: snapshot-manager  # Service Name
+
+provider:
+  name: aws
+  runtime: python2.7
+  iamRoleStatements:
+  # We must be able to do what this script needs to do... 
+  - Effect: Allow
+    Action:
+      - ec2:CreateImage
+      - ec2:CreateSnapshot
+      - ec2:CopySnapshot
+      - ec2:CreateTags
+      - ec2:DeleteSnapshot
+      - ec2:DeleteTags
+      - ec2:DescribeTags
+      - ec2:DeregisterImage
+      - ec2:DescribeImages
+      - ec2:DescribeInstances
+      - ec2:DescribeSnapshots
+      - ec2:DescribeVolumes
+      - sts:DecodeAuthorizationMessage
+    Resource: "*"
+  environment:
+    DRRegion:  ${self:custom.DRRegion.${self:provider.stage}}
+    SnapshotDefaultRetention: ${self:custom.SnapshotDefaultRetention.${self:provider.stage}}
+
+custom:
+  DRRegion:
+    local: us-east-1
+    dev: us-east-2
+    prod: us-east-2
+  SnapshotDefaultRetention: 
+    local: 1
+    dev: 1
+    prod: 7
+
+functions:
+  create_snapshot:
+    handler: snapshot_mgr.handler
+    events:
+      # Invoke Lambda function every one hour
+      - schedule: rate(1 hour)
+  copy_snapshot:
+    handler: snapshot_mgr.copy_handler
+    events:
+      # Invoke Lambda function every one hour
+      - schedule: rate(5 minutes)
+package:
+  include:
+    - '*.py'
+  exclude:
+    - node_modules/**
+    - node-dependencies-*
+    - make.cmd
+    - Makefile
+    - Makefile.py
+    - package.json
+    - package-lock.json
