@@ -3,6 +3,8 @@ service: snapshot-manager  # Service Name
 provider:
   name: aws
   runtime: python2.7
+  cfLogs: true
+  logRetentionInDays: 3
   iamRoleStatements:
   # We must be able to do what this script needs to do... 
   - Effect: Allow
