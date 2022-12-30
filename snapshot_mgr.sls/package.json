@@ -4,7 +4,7 @@
   "description": "Serverless snapshot manager auto-backup to DR site",
   "main": "snapshot_mgr.py",
   "devDependencies": {
-    "serverless": "^1.25.0"
+    "serverless": "^1.83.3"
   },
   "scripts": {
     "sls": "sls"
